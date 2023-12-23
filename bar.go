@@ -43,6 +43,6 @@ func (b *Bar) Update(value int) {
 	fmt.Printf("%c%s%c%s%c\n", b.style.open, res, b.style.sep, spacings, b.style.close)
 }
 
-func newBar(size int, style Style) Bar {
+func NewBar(size int, style Style) Bar {
 	return Bar{false, size, style}
 }
