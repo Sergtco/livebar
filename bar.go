@@ -26,12 +26,18 @@ func CustomStyle(open, complete, sep, fill, close rune) (s Style) {
 const empty = '\u0000'
 
 var (
-	Arrow Style = Style{'[', '-', '>', ' ', ']'}
-	Block       = Style{empty, '█', '\u0000', '░', empty}
+	Arrow  Style = Style{'[', '-', '>', ' ', ']'}
+	Block        = Style{empty, '█', '\u0000', '░', empty}
+	PacMan       = Style{'[', ' ', '󰮯', '', ']'}
 )
 
-// Updates value of bar in percents format
-func (b *Bar) Update(value int) {
+// Updates value of bar in percents format.
+//
+// Returns error if bar value is not in [0, 100]
+func (b *Bar) Update(value int) error {
+	if value < 0 || value > 100 {
+		return fmt.Errorf("Invalid bar value: %d", value)
+	}
 	if b.written {
 		fmt.Print("\x1b[1F")
 		fmt.Print("\x1b[2K")
@@ -41,6 +47,7 @@ func (b *Bar) Update(value int) {
 	res := strings.Repeat(string(b.style.complete), completeNum)
 	spacings := strings.Repeat(string(b.style.fill), b.size-completeNum)
 	fmt.Printf("%c%s%c%s%c\n", b.style.open, res, b.style.sep, spacings, b.style.close)
+	return nil
 }
 
 func NewBar(size int, style Style) Bar {
