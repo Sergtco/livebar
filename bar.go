@@ -3,33 +3,14 @@ package livebar
 import (
 	"fmt"
 	"strings"
+    "github.com/Sergtco/livebar/pkg/term"
 )
 
 type Bar struct {
 	written bool
 	size    int
-	style   Style
+	style   BarStyle
 }
-
-type Style struct {
-	open     rune
-	complete rune
-	sep      rune
-	fill     rune
-	close    rune
-}
-
-func CustomStyle(open, complete, sep, fill, close rune) (s Style) {
-	return Style{open, complete, sep, fill, close}
-}
-
-const empty = '\u0000'
-
-var (
-	Arrow  Style = Style{'[', '-', '>', ' ', ']'}
-	Block        = Style{empty, '█', '\u0000', '░', empty}
-	PacMan       = Style{'[', ' ', '󰮯', '', ']'}
-)
 
 // Updates value of bar in percents format.
 //
@@ -43,6 +24,8 @@ func (b *Bar) Update(value int) error {
 		fmt.Print("\x1b[2K")
 	}
 	b.written = true
+	termWidth, _ := term.GetWidth()
+	b.size = minInt(b.size, int(termWidth))
 	completeNum := int(float32(value) / 100. * float32(b.size))
 	res := strings.Repeat(string(b.style.complete), completeNum)
 	spacings := strings.Repeat(string(b.style.fill), b.size-completeNum)
@@ -50,6 +33,6 @@ func (b *Bar) Update(value int) error {
 	return nil
 }
 
-func NewBar(size int, style Style) Bar {
+func NewBar(size int, style BarStyle) Bar {
 	return Bar{false, size, style}
 }

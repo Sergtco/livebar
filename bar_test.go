@@ -15,7 +15,7 @@ func TestStyle(t *testing.T) {
 }
 
 func TestCustomStyle(t *testing.T) {
-    customStyle := CustomStyle('<', '_', '\u0000', '.', '>')
+    customStyle := CustomBarStyle('<', '_', '\u0000', '.', '>')
     customBar := NewBar(50, customStyle)
     customBar.Update(50)
 }
