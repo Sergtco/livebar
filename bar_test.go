@@ -24,6 +24,6 @@ func TestDynamically(t *testing.T) {
     arrow := NewBar(50, Block)
     for i := 0; i<=100; i++ {
         arrow.Update(i)
-        time.Sleep(time.Millisecond * 10)
+        time.Sleep(time.Millisecond * 100)
     }
 }
