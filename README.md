@@ -19,4 +19,4 @@ func main() {
     fmt.Println("Processed")
 }
 ```
-![output](https://github.com/Sergtco/livebar/assets/75071620/981292fc-efab-4869-914e-4c534f7d72ef)
+![output](https://github.com/Sergtco/livebar/assets/75071620/582cf4bb-5f4c-4fda-b217-2b4b9a33bb01)
