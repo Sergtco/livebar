@@ -26,7 +26,6 @@ func (b *Bar) Update(value int) error {
 	b.written = true
 	termWidth, _ := term.GetWidth()
 	b.size = minInt(b.size, int(termWidth))
-    fmt.Println(termWidth)
 	completeNum := int(float32(value) / 100. * float32(b.size))
 	res := strings.Repeat(string(b.style.complete), completeNum)
 	spacings := strings.Repeat(string(b.style.fill), b.size-completeNum)
